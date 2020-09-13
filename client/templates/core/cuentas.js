@@ -26,10 +26,10 @@ Template.cuentas.helpers({
   rol5Sel: function () {
     return Session.get('RolSeleccionado') == 5;
   },
-  rol6Sel: function () {
+  rolTrabajadores: function () {
     return Session.get('RolSeleccionado') == 6;
   },
-  rol7Sel: function () {
+  rolDesvinculados: function () {
     return Session.get('RolSeleccionado') == 7;
   },
   accountsCount: function () {
@@ -94,14 +94,25 @@ Template.cuentas.events({
       Router.go('/cuentaEdit');
     }
   },
-  'click .btn-delete': function (e) {
+  'click .btn-eliminar': function (e) {
     var btnid = e.currentTarget.id;
     var usuario = Meteor.users.findOne(btnid);
     Session.set('Parametros', {
       entidad: "usuario",
       id: btnid,
       identificacion: usuario.profile.name,
-      operacion: usuario.profile.role==7 ? "eliminar" : "desvincular"
+      operacion: "eliminar"
+    });
+    $('#modal-confirmacion-eliminacion').modal('show');
+  },
+  'click .btn-desvincular': function (e) {
+    var btnid = e.currentTarget.id;
+    var usuario = Meteor.users.findOne(btnid);
+    Session.set('Parametros', {
+      entidad: "usuario",
+      id: btnid,
+      identificacion: usuario.profile.name,
+      operacion: "desvincular"
     });
     $('#modal-confirmacion-eliminacion').modal('show');
   },
