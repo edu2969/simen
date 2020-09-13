@@ -1,8 +1,14 @@
 Meteor.startup(function () {
-  // test gmail. Se debe deshabilitar el envio desde aplicaciones no seguras en GMail.security
-  process.env.MAIL_URL="smtp://edtronco%40gmail.com:;Eatm105.@smtp.gmail.com:465/";
+	// test gmail. Se debe deshabilitar el envio desde aplicaciones no seguras en GMail.security
+	process.env.MAIL_URL = "smtp://edtronco%40gmail.com:;Eatm105.@smtp.gmail.com:465/";
 });
 
 if (Meteor.isServer) {
-
+	if (Meteor.users.find().count() == 0) {
+		Accounts.createUser({
+			username: "neo",
+			password: "Metal!",
+			email: "neo@simen.cl"
+		});
+	}
 }
