@@ -1,7 +1,7 @@
 standard-app-packages
 less
 # email
-accounts-password@1.5.2
+accounts-password@1.6.2
 ajduke:bootstrap-tagsinput
 rzymek:moment-locale-es
 tsega:bootstrap3-datetimepicker
@@ -15,6 +15,6 @@ sergeyt:typeahead
 reywood:publish-composite
 particle4dev:upload-avatar
 risul:bootstrap-colorpicker
-dynamic-import@0.5.1
+dynamic-import@0.5.2
 coffeescript
-ecmascript@0.14.2
+ecmascript@0.14.3
