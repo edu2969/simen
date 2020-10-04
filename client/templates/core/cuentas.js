@@ -103,7 +103,7 @@ Template.cuentas.events({
       identificacion: usuario.profile.name,
       operacion: "eliminar"
     });
-    $('#modal-confirmacion-eliminacion').modal('show');
+    $('#modalconfirmacioneliminacion').modal('show');
   },
   'click .btn-desvincular': function (e) {
     var btnid = e.currentTarget.id;
@@ -114,7 +114,7 @@ Template.cuentas.events({
       identificacion: usuario.profile.name,
       operacion: "desvincular"
     });
-    $('#modal-confirmacion-eliminacion').modal('show');
+    $('#modalconfirmacioneliminacion').modal('show');
   },
   'click #btn-add-account': function (e) {
     e.preventDefault();

@@ -1,4 +1,4 @@
-Template.modalConfirmacionEliminacion.helpers({
+Template.modalconfirmacioneliminacion.helpers({
   parametros: function () {
     var params = Session.get('Parametros');
     if(!params) return false;
@@ -6,12 +6,12 @@ Template.modalConfirmacionEliminacion.helpers({
   }
 });
 
-Template.modalConfirmacionEliminacion.events({
+Template.modalconfirmacioneliminacion.events({
   'click #btn-confirm': function (e) {
     e.preventDefault();
     var params = Session.get('Parametros');
     if (!params) return;
-    $('#modal-confirmacion-eliminacion').modal('hide');
+    $('#modalconfirmacioneliminacion').modal('hide');
     var ruta = false;
     switch(params.entidad) {
       case "item": Items.remove(params.id); break;
@@ -24,6 +24,5 @@ Template.modalConfirmacionEliminacion.events({
     }
     
     delete Session.keys["Parametros"];
-    if(ruta) Router.go(ruta);
   }
 });
