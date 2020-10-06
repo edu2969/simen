@@ -291,12 +291,13 @@ Template.asistenciaDetalle.events({
     $('#modal-edit-value').modal('show');
 
     var text = e.currentTarget.innerText;
-    if (text == '+') {
+    if (text.charAt(0) == ' ') {
       text = '';
       $('#invalid-checkbox-section').hide();
     } else {
       $('#invalid-checkbox-section').show();
     }
+		console.log(text);
     $('#assist-time').val(text);
   },
   'click #btn-print': function (e) {
