@@ -102,7 +102,7 @@ Template.asistencias.events({
     $('#div-colaborator').show();
   },
   'change #select-colaborator': function (e) {
-    var id = $("#select-colaborator").children(":selected").attr("id");
+    var id = $("#select-colaborator").val();
     loadColaboratorsChart(id);
     $('#div-colaborator').show();
   },
@@ -133,15 +133,19 @@ Template.asistencias.events({
   },
   "click #btn-reporte": function(e) {
     e.preventDefault();
-    var periodo = Router.current().params.month + "/" + Router.current().params.year;
-    var bioId = Router.current().params.bioId;
-    Meteor.call('ObtenerPDF', 'simen', 'asistencia', { "periodo": periodo, "bioId": bioId }, function(err, res){
+    var periodo = moment($("#input-periodo").val(), "MMMM'YY").format("MM/YYYY");
+    var bioId = $("#filter-rrhh-id").children(":selected").attr("id");
+    Meteor.call('ObtenerPDF', 'simen', 'asistencia', { 
+			"periodo": periodo, 
+			"bioId": Number(bioId)
+		}, function(err, res){
       var dl = document.createElement("a");
       dl.href = "data:application/pdf;base64, " + res;
       if(bioId==-1) {
         dl.download = "asistencia_" + periodo;
       } else {
-        dl.download = "asistencia_" + periodo + "_" + Normalizar(Meteor.users.findOne({ "profile.bioId": bioId }).profile.name.toLowerCase().replace(/\ /g, "_"));
+				let colaborador = $("#filter-rrhh-id").val();
+        dl.download = "asistencia_" + periodo + "_" + Normalizar(colaborador.replace(/\ /g, "_"));
       }      
       document.body.appendChild(dl);
       dl.click();
