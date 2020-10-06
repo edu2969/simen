@@ -1,4 +1,4 @@
-var base64 = Npm.require('base64-stream');
+const { Base64Encode } = Npm.require('base64-stream');
 var Future = Npm.require('fibers/future');
 var PDFKit = Npm.require('pdfkit');
 var XLSX = Npm.require('xlsx');
@@ -56,7 +56,7 @@ FabricaPDFs = function (identificador, tipo, parametros) {
 
 	var future = new Future();
 	var finalString = "";
-	var stream = doc.pipe(base64.encode());
+	var stream = doc.pipe(new Base64Encode());
 	doc.end();
 	stream.on('data', function (chunk) {
 		finalString += chunk;
