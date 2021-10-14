@@ -7,10 +7,12 @@ Template.modalEditValue.helpers({
 		return Session.get('MarcationParams')
 	},
 	esGerente: function () {
-		return Meteor.user() && Meteor.user().profile.role <= 2;
+		const usuario = Meteor.user();
+		return usuario?.profile?.role <= 2;
 	},
 	esAsesor: function () {
-		return Meteor.user() && Meteor.user().profile.role == 3;
+		const usuario = Meteor.user();
+		return usuario?.profile?.role == 3;
 	}
 });
 

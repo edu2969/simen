@@ -15,7 +15,8 @@ Template.cuentaEdit.destroyed = function () {
 
 Template.cuentaEdit.helpers({
 	esAdmin: function () {
-		return Meteor.user() && Meteor.user().profile.role == 1;
+		const usuario = Meteor.user();
+		return usuario?.profile?.role == 1;
 	},
 	esTrabajador: function () {
 		return Session.get('RolSeleccionado') == 6;
@@ -52,12 +53,11 @@ Template.cuentaEdit.events({
 		if (hayErrores()) return;
 		var rolactual = Session.get("RolSeleccionado");
 		var docSet = {
-				profile: {}
-			},
+			profile: {}
+		},
 			docUnset = {
 				profile: {}
 			};
-		var inputs = $(".form-control");
 		var usuario = Session.get("UsrSel");
 		$.map($(".form-control"), function (entrada) {
 			if (entrada.id && entrada.id.includes("cuenta")) {
@@ -68,30 +68,29 @@ Template.cuentaEdit.events({
 				var atributo = entrada.id.split("-")[1];
 				var usuario = Session.get("UsrSel");
 				var oldval = atributo == "email" ? eval("usuario.emails[0].address") : eval("usuario.profile." + atributo);
-				console.log(atributo, oldval, valor);
 				if (oldval != valor) {
 					if (!valor) {
 						if (!atributo.includes("password") && !usuario._id) {
-							docUnset.profile[atributo] = valor;
+							docUnset["profile." + atributo] = valor;
 						}
 					} else {
 						if (atributo == "email") {
 							if (usuario._id) {
 								docSet["emails"] = [{
 									address: valor
-                                }];
+								}];
 							} else {
 								docSet["email"] = valor;
 							}
 						} else {
 							if (usuario._id) {
 								if (!atributo.includes("password")) {
-									docUnset.profile[atributo] = valor;
-								} else {
 									docSet["profile." + atributo] = valor;
+								} else {
+									docSet.profile[atributo] = valor;
 								}
 							} else {
-								docSet.profile[atributo] = valor;
+								docSet["profile." + atributo] = valor;
 							}
 						}
 					}
@@ -130,13 +129,13 @@ Template.cuentaEdit.events({
 					Session.set("ImportMessages", {
 						danger: [{
 							item: resp
-                        }]
+						}]
 					});
 				} else {
 					Session.set("ImportMessages", {
 						success: [{
 							item: "Password actualizado correctamente"
-                        }]
+						}]
 					});
 				}
 			});
@@ -147,7 +146,7 @@ Template.cuentaEdit.events({
 				Session.set("ImportMessages", {
 					warning: [{
 						item: "Sin cambios"
-                    }]
+					}]
 				});
 				setTimeout(function () {
 					Session.set("ImportMessages", []);
@@ -161,13 +160,13 @@ Template.cuentaEdit.events({
 				Session.set("ImportMessages", {
 					danger: [{
 						item: resp
-          }]
+					}]
 				});
 			} else {
 				Session.set("ImportMessages", {
 					success: [{
 						item: "Datos actualizados"
-          }]
+					}]
 				});
 				var usuario = Session.get("UsrSel");
 				usuario._id = resp;

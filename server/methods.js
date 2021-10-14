@@ -37,11 +37,11 @@ FabricaPDFs = function (identificador, tipo, parametros) {
 						bioId: u.profile.bioId
 					});
 					if ((indice + 1) < Meteor.users.find({
-							"profile.role": 6,
-							"profile.prioridad": {
-								$exists: true
-							}
-						}).count()) {
+						"profile.role": 6,
+						"profile.prioridad": {
+							$exists: true
+						}
+					}).count()) {
 						doc.addPage();
 					}
 				});
@@ -125,9 +125,9 @@ PDFCotizaciones = function (cId) {
 	doc.fontSize(10).fillColor("#3C3C3B");
 	doc.text(DayNames[d.getDay()] + ' ' + d.getDate() + ' de ' + MonthNames[d.getMonth()] + ', ' + d.getFullYear(),
 		350, 30, {
-			align: 'right',
-			width: 200
-		});
+		align: 'right',
+		width: 200
+	});
 
 	doc.fontSize(11).fillColor("#3C3C3B");
 	doc.text('Oferta Nº ' + ceros + cotizacion.numero, 50, 52, {
@@ -246,9 +246,9 @@ PDFCotizaciones = function (cId) {
 			doc.font(i == 0 ? fontBold : fontNormal).fontSize(10);
 			doc.text(i == 0 ? lineas[i] : lineas[i].replace("- ", ""),
 				(i == 0 ? 50 : 70) + textPadding + col48 * 11, lineaSuperior + (lineas.length > 1 ? 4 : textPadding), {
-					align: 'left',
-					width: col48 * 21 - textPadding * 2 - (i == 0 ? 0 : 10)
-				});
+				align: 'left',
+				width: col48 * 21 - textPadding * 2 - (i == 0 ? 0 : 10)
+			});
 			if (i > 0) {
 				doc.text("- ", 50 + textPadding + col48 * 11, lineaSuperior + (lineas.length > 1 ? 4 : textPadding), {
 					align: 'left',
@@ -268,9 +268,9 @@ PDFCotizaciones = function (cId) {
 		});
 		doc.text(item.cantidad,
 			44 + textPadding + col48 * 2, topCeldas + textPadding, {
-				align: 'center',
-				width: col48 * 4
-			});
+			align: 'center',
+			width: col48 * 4
+		});
 		var subcategoria = Categorias.findOne({
 			_id: item.subcategoriaId
 		});
@@ -282,18 +282,18 @@ PDFCotizaciones = function (cId) {
 
 		doc.text(MaskPrice(item.valor, ""),
 			50 + textPadding + col48 * 32, topCeldas + textPadding, {
-				align: 'right',
-				width: col48 * 8 - textPadding * 2
-			});
+			align: 'right',
+			width: col48 * 8 - textPadding * 2
+		});
 
 		doc.text(moneda,
 			50 + textPadding + col48 * 40, topCeldas + textPadding);
 
 		doc.text(MaskPrice(item.valor * item.cantidad, item.moneda),
 			50 + textPadding + col48 * 40, topCeldas + textPadding, {
-				align: 'right',
-				width: col48 * 8 - textPadding * 2
-			});
+			align: 'right',
+			width: col48 * 8 - textPadding * 2
+		});
 
 		doc.lineJoin('miter').rect(50, topCeldas, col48 * 2, alturaTotal * hsize * .6 + textPadding * 2).stroke();
 		doc.lineJoin('miter').rect(50 + col48 * 2, topCeldas, col48 * 4, alturaTotal * hsize * .6 + textPadding * 2).stroke();
@@ -326,9 +326,9 @@ PDFCotizaciones = function (cId) {
 			doc.fontSize(10).fillColor('#084355');
 			doc.text(DayNames[d.getDay()] + ' ' + d.getDate() + ' de ' + MonthNames[d.getMonth()] + ', ' + d.getFullYear(),
 				350, 30, {
-					align: 'right',
-					width: 200
-				});
+				align: 'right',
+				width: 200
+			});
 
 			doc.rect(50, top, col48 * 1 - 1, hsize - 1).fill('#22829f', 'even-odd');
 			doc.rect(50 + col48 * 1, top, col48 * 2 - 1, hsize - 1).fill('#22829f', 'even-odd');
@@ -448,9 +448,9 @@ PDFCotizaciones = function (cId) {
 	doc.fontSize(10).font(fontNormal).fillColor('#3C3C3B');
 	doc.text(DayNames[d.getDay()] + ' ' + d.getDate() + ' de ' + MonthNames[d.getMonth()] + ', ' + d.getFullYear(),
 		350, 30, {
-			align: 'right',
-			width: 200
-		});
+		align: 'right',
+		width: 200
+	});
 
 	doc.fontSize(11).fillColor("#3C3C3B");
 	doc.text('Oferta Nº ' + ceros + cotizacion.numero, 50, 52, {
@@ -851,8 +851,8 @@ PDFAsistenciasTrabajador = function (doc, params) {
 					function (l) {
 						return l.periodo = month + "/" + year;
 					}).map(function (o) {
-					return o.observacion;
-				}), 50, 660);
+						return o.observacion;
+					}), 50, 660);
 		}
 	}
 	return doc;
@@ -1028,7 +1028,6 @@ Meteor.methods({
 		Accounts.setPassword(userId, password);
 	},
 	ActualizarUsuario: function (userId, docSet, docUnset) {
-		console.log("ACTUALIZANDO USUARIO-->", userId, docSet, docUnset);
 		var error = false;
 		var doc = {};
 		if (!userId) {
@@ -1151,9 +1150,9 @@ Meteor.methods({
 				/*total = 0;
 				var pId = Cotizaciones.findOne(cotId).proyectoId;
 				Cotizaciones.find({
-				  proyectoId: pId
+					proyectoId: pId
 				}).forEach(function (p) {
-				  total = total + p.total;
+					total = total + p.total;
 				});*/
 			}
 		} else {
@@ -1178,76 +1177,76 @@ Meteor.methods({
 				codigo: 1,
 				glosa: "Borrador",
 				descripcion: "Cotización en revisión"
-            },
+			},
 			{
 				llave: "EST_COT",
 				codigo: 2,
 				glosa: "Enviada",
 				descripcion: "Cotización enviada cliente"
-            },
+			},
 			{
 				llave: "EST_COT",
 				codigo: 3,
 				glosa: "Aceptada",
 				descripcion: "Cotización aceptada por cliente"
-            },
+			},
 			{
 				llave: "EST_COT",
 				codigo: 4,
 				glosa: "Rechazada",
 				descripcion: "Cotización rechazada por cliente"
-            },
+			},
 			{
 				llave: "EST_COT",
 				codigo: 5,
 				glosa: "Impaga",
 				descripcion: "Cotización en revisión"
-            },
+			},
 			{
 				llave: "EST_COT",
 				codigo: 6,
 				glosa: "Pago parcial",
 				descripcion: "Cotización en revisión"
-            },
+			},
 			{
 				llave: "EST_COT",
 				codigo: 7,
 				glosa: "Pagada",
 				descripcion: "Cotización en revisión"
-            }
-    ];
+			}
+		];
 		var estados_factura = [
 			{
 				llave: "EST_FAC",
 				codigo: 1,
 				glosa: "Pendiente Facturación",
 				descripcion: "Cotización ha sido facturada"
-            },
+			},
 			{
 				llave: "EST_FAC",
 				codigo: 2,
 				glosa: "Facturada",
 				descripcion: "Cotización ha sido facturada"
-            },
+			},
 			{
 				llave: "EST_FAC",
 				codigo: 3,
 				glosa: "Factura Imaga",
 				descripcion: "Factura no registra pago alguno"
-            },
+			},
 			{
 				llave: "EST_FAC",
 				codigo: 4,
 				glosa: "Factura Parcialmente pagada",
 				descripcion: "Factura registra parte del total de pagos"
-            },
+			},
 			{
 				llave: "EST_FAC",
 				codigo: 5,
 				glosa: "Factura Pagada",
 				descripcion: "Factura pagada"
-            }
-    ];
+			}
+		];
 
 		estados_cotizacion.forEach(function (o) {
 			Categorias.insert(o);
@@ -1291,7 +1290,7 @@ Meteor.methods({
 				year: fecha.year(),
 				marcas: [{
 					ms: msmarcacion
-        }]
+				}]
 			});
 			reg = Asistencias.findOne(id);
 		} else {
@@ -1337,13 +1336,13 @@ Meteor.methods({
 		var a = Asistencias.findOne(doc);
 		var marcas = [{
 			"ms": 110160000
-    }, {
+		}, {
 			"ms": 168480000
-    }, {
+		}, {
 			"ms": 181440000
-    }, {
+		}, {
 			"ms": 239760000
-    }];
+		}];
 		if (!a) {
 			console.log("INSERT");
 			doc.marcas = marcas;

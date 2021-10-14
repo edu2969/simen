@@ -1,6 +1,6 @@
 Template.cuentas.rendered = function () {
   Session.set('NavigationPath', false);
-  if (Meteor.user().profile.role == 1) {
+  if (Meteor.user()?.profile?.role == 1) {
     Session.set('RolSeleccionado', 1);
   } else {
     Session.set('RolSeleccionado', 6);
@@ -9,7 +9,8 @@ Template.cuentas.rendered = function () {
 
 Template.cuentas.helpers({
   isAdmin: function () {
-    return Meteor.user() && Meteor.user().profile.role == 1;
+    const usuario = Meteor.user();
+    return usuario?.profile?.role == 1;
   },
   adminSel: function () {
     return Session.get('RolSeleccionado') == 1;
@@ -43,7 +44,7 @@ Template.cuentas.helpers({
   accounts: function () {
     return Meteor.users.find({
       "profile.role": Session.get("RolSeleccionado")
-    }, { sort: { "profile.prioridad": 1 }}).map(function (a, index) {
+    }, { sort: { "profile.prioridad": 1 } }).map(function (a, index) {
       a.index = index + 1;
       a.oculto = a.profile.bioId == -1;
       a.desvinculado = a.profile.role == 7;
@@ -125,7 +126,7 @@ Template.cuentas.events({
       emails: [{
         address: "",
         verified: false
-            }]
+      }]
     });
     AddNav('/cuentas');
     Router.go('/cuentaEdit');
