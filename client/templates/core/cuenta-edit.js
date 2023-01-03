@@ -61,8 +61,7 @@ Template.cuentaEdit.events({
 		var usuario = Session.get("UsrSel");
 		$.map($(".form-control"), function (entrada) {
 			if (entrada.id && entrada.id.includes("cuenta")) {
-				var valor = entrada.id.split("-")[1] == "rut" ||
-					entrada.id.split("-")[1] == "bioId" ||
+				var valor = entrada.id.split("-")[1] == "bioId" ||
 					entrada.id.split("-")[1] == "prioridad" ?
 					Number(entrada.value) : entrada.value;
 				var atributo = entrada.id.split("-")[1];
@@ -159,7 +158,7 @@ Template.cuentaEdit.events({
 			if (err) {
 				Session.set("ImportMessages", {
 					danger: [{
-						item: resp
+						item: err
 					}]
 				});
 			} else {

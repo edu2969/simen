@@ -1028,6 +1028,7 @@ Meteor.methods({
 		Accounts.setPassword(userId, password);
 	},
 	ActualizarUsuario: function (userId, docSet, docUnset) {
+		console.log("ACTUALIZANDO", userId, docSet, docUnset);
 		var error = false;
 		var doc = {};
 		if (!userId) {
@@ -1040,14 +1041,19 @@ Meteor.methods({
 				docSet.profile.appz = "panelTrabajador";
 			}
 			//console.log("Creando cuenta", { email: doc.$set.email, password: password, profile: doc.$set.profile });
+			console.log("CREATEUSER", {
+				email: email,
+				password: password,
+				profile: docSet.profile
+			});
 			userId = Accounts.createUser({
 				email: email,
 				password: password,
 				profile: docSet.profile
 			});
 		} else {
-			if (docSet.password) {
-				Meteor.updatePassword(userId, password);
+			if (docSet.profile.password) {
+				Meteor.updatePassword(userId, docSet.profile.password);
 				return userId;
 			}
 			var doc = {};
