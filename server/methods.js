@@ -1032,7 +1032,7 @@ Meteor.methods({
 		var error = false;
 		var doc = {};
 		if (!userId) {
-			var password = docSet.profile.password;
+			var password = docSet["profile.password"];
 			var email = docSet.email;
 			delete docSet.profile.password;
 			delete docSet.profile.repassword;
@@ -1052,7 +1052,7 @@ Meteor.methods({
 				profile: docSet.profile
 			});
 		} else {
-			if (docSet.profile.password) {
+			if (docSet["profile.password"]) {
 				Meteor.updatePassword(userId, docSet.profile.password);
 				return userId;
 			}
