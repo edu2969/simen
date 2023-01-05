@@ -1,11 +1,3 @@
-var EDITING_KEY = 'importarAsistencia';
-Session.setDefault(EDITING_KEY, false);
-
-// Track if this is the first time the list template is rendered
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 Template.importarAsistencia.rendered = function () {
   Session.set('ImportMessages', false);
 }
@@ -36,7 +28,7 @@ Template.importarAsistencia.events({
     var entradas = text2Import.split(/\r\n|\n|\r/);
     for (var i = 1; i < entradas.length; i++) {
       var datos = entradas[i].trim().split("\t");
-      var bioId = Number(datos[0]);      
+      var bioId = Number(datos[0]);
       Meteor.call("ProcesarAsistencia", bioId, datos[1], function(err, resp) {
         if(!err) {
           if(resp) {
@@ -45,8 +37,8 @@ Template.importarAsistencia.events({
             if(!messages.danger) messages.danger = [];
             messages.danger.push(resp);
             Session.set('ImportMessages', messages);
-          }            
-        }          
+          }
+        }
       });
     }
     var messages = Session.get('ImportMessages');

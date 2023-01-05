@@ -29,7 +29,7 @@
             <li id="tab-rol6" role="presentation" class="tab-rol {{#if rol6Sel}}active{{/if}}"><a href="#">Trabajadores ({{cantidadTrabajadores}})</a>
             </li>
             <li id="tab-rol7" role="presentation" class="tab-rol {{#if rol7Sel}}active{{/if}}"><a href="#">Desvinculados</a>
-            </li>            
+            </li>
           </ul>
         </div>
       </div>
@@ -39,7 +39,7 @@
             <div class="row">
               <div class="col-xs-12">
                 <h4>
-                  {{index}}.<b>{{profile.name}}</b>{{#if profile.bioId}}<small> BioId: {{profile.bioId}}</small>{{/if}}
+                  {{index}}.<b>{{nombreCorto profile}}</b>{{#if profile.bioId}}<small> BioId: {{profile.bioId}}</small>{{/if}}
                 </h4>
                 <span>{{emails.[0].address}}</span>
               </div>

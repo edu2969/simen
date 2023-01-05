@@ -1,11 +1,3 @@
-var EDITING_KEY = 'proyectos';
-Session.setDefault(EDITING_KEY, false);
-
-// Track if this is the first time the list template is rendered
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 Template.proyectos.rendered = function () {
   Session.set('EmpresaIdSeleccionada', false);
   Meteor.typeahead('#input-empresas-search', function () {
@@ -57,7 +49,7 @@ Template.proyectos.events({
   'click .btn-eliminar': function (e) {
     e.preventDefault();
     Session.set('Parametros', {
-      entidad: "proyecto", 
+      entidad: "proyecto",
       id: e.currentTarget.id
     });
     $('#modal-confirmacion-eliminacion').modal('show');

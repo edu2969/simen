@@ -1,11 +1,3 @@
-var EDITING_KEY = 'prList';
-Session.setDefault(EDITING_KEY, false);
-
-// Track if this is the first time the list template is rendered
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 var options = {
   keepHistory: 1000 * 60 * 5,
   localSearch: true
@@ -63,7 +55,7 @@ Template.prList.helpers({
     return PRs.find({ clienteId: userId }, { sort: { number: -1 }}).map(function (a, index) {
       a.index = index;
       a.cliente = Meteor.users.findOne(a.clienteId);
-      if(!a.cliente.email) 
+      if(!a.cliente.email)
         a.cliente.email = 'Sin contacto';
       return a;
     });

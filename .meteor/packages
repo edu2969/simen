@@ -1,7 +1,6 @@
 standard-app-packages
 less
-# email
-accounts-password@1.6.2
+accounts-password@2.3.2
 ajduke:bootstrap-tagsinput
 rzymek:moment-locale-es
 tsega:bootstrap3-datetimepicker
@@ -13,8 +12,7 @@ multiply:iron-router-progress
 meteorhacks:search-source
 sergeyt:typeahead
 reywood:publish-composite
-particle4dev:upload-avatar
 risul:bootstrap-colorpicker
-dynamic-import@0.5.2
+dynamic-import@0.7.2
 coffeescript
-ecmascript@0.14.3
+ecmascript@0.16.4

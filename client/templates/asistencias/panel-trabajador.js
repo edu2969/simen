@@ -1,11 +1,3 @@
-var EDITING_KEY = "panelTrabajador";
-Session.setDefault(EDITING_KEY, false);
-
-// Track if this is the first time the list template is rendered
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 Template.panelTrabajador.rendered = function () {
   Session.set('NavigationPath', false);
   var initial = moment().subtract(1, 'months').toDate();
@@ -31,12 +23,12 @@ Template.panelTrabajador.helpers({
     return Meteor.user().profile.role==6;
   },
   trabajadores: function() {
-    return Meteor.users.find({ 
-      "profile.role": 6, 
+    return Meteor.users.find({
+      "profile.role": 6,
       "profile.prioridad": { $exists: true }
     }, { sort: { "profile.prioridad": 1 }}).map(function(o) {
-      a = { 
-        id: o.profile.bioId, 
+      a = {
+        id: o.profile.bioId,
         nombre: o.profile.name
       }
       return a;

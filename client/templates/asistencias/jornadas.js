@@ -1,11 +1,3 @@
-var EDITING_KEY = 'jornadas';
-Session.setDefault(EDITING_KEY, false);
-
-// Track if this is the first time the list template is rendered
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 Template.jornadas.rendered = function() {
   var initial = moment();
 
@@ -29,7 +21,7 @@ Template.jornadas.events({
     $("#modal-editar-fecha-especial").modal('show');
   },
   'click .btn-eliminar-jornada': function (e) {
-    e.preventDefault();    
+    e.preventDefault();
     Session.set('Parametros', {
       entidad: "fechaespecial",
       id: e.currentTarget.id
@@ -51,10 +43,10 @@ Template.jornadas.helpers({
     var periodo = Session.get("PeriodoJornada");
     if(!periodo) return false;
     return FechasEspeciales.find({
-      fecha: { 
-        $gte: moment().year(periodo).startOf("year").toDate(), 
-        $lte: moment().year(periodo).endOf("year").toDate() 
-      } 
+      fecha: {
+        $gte: moment().year(periodo).startOf("year").toDate(),
+        $lte: moment().year(periodo).endOf("year").toDate()
+      }
     }, { sort: { fecha: 1 }}).map( function (a, index) {
       a.index = index;
       a.glosa = a.tipo == 1 ? 'Feriado Legal' : a.tipo == 2 ? 'Compensado Vacaciones' : 'Medio Día';

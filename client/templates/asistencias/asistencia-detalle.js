@@ -1,11 +1,3 @@
-var EDITING_KEY = 'asistenciaDetalle';
-Session.setDefault(EDITING_KEY, false);
-
-// Track if this is the first time the list template is rendered
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 Template.asistenciaDetalle.rendered = function () {
   Session.set("ImportMessages", false);
 }
@@ -24,7 +16,7 @@ Template.asistenciaDetalle.helpers({
     return false;
   },
   period: function () {
-    return moment().month(Router.current().params.month - 1).format('MMM') 
+    return moment().month(Router.current().params.month - 1).format('MMM')
       + '/' + Router.current().params.year;
   },
   stats: function () {
@@ -238,7 +230,7 @@ Template.asistenciaDetalle.helpers({
       if (user.profile.libro) {
         registro = user.profile.libro.filter(function (item) {
           return item.periodo === (
-            Router.current().params.month + "/" 
+            Router.current().params.month + "/"
             + Router.current().params.year
           )
         })[0]

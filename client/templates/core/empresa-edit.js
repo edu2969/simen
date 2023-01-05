@@ -1,10 +1,3 @@
-var EDITING_KEY = 'empresaEdit';
-Session.setDefault(EDITING_KEY, false);
-
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 Template.empresaEdit.rendered = function () {
   var e = Session.get("Empresa");
   if(!e) e = {
@@ -67,7 +60,7 @@ Template.empresaEdit.events({
     var id = e.currentTarget.id;
     var tipo = e.currentTarget.attributes.tipo.value;
     var value = e.currentTarget.value;
-    var valor = ( tipo =='fecha' ? moment(value, 'DD/MM/YY').toDate() : 
+    var valor = ( tipo =='fecha' ? moment(value, 'DD/MM/YY').toDate() :
                  tipo=='select-id' ? e.currentTarget.options[e.currentTarget.selectedIndex].id
                  : value );
     var empresa = Session.get('Empresa');
@@ -94,10 +87,10 @@ Template.empresaEdit.events({
           if(!err) {
             var e = Session.get("Empresa");
             e._id = empresaId;
-            Session.set("Empresa", e);            
+            Session.set("Empresa", e);
           }
         });
-      }      
+      }
     }
   },
   'click li a': function(e) {
@@ -121,12 +114,12 @@ Template.empresaEdit.events({
     e.preventDefault();
     var id = e.currentTarget.id;
     var integrante = Equipos.findOne(id);
-    Session.set('Parametros', { 
-      id: id , 
-      entidad: "integrante", 
-      identificacion: (integrante.usuarioId?Meteor.users.findOne(integrante.usuarioId).profile.name:'Sin definir, rol ' 
-                       + (integrante.rol?integrante.rol:' Sin rol definido')), 
-      empresaId: Router.current().params._empresaId 
+    Session.set('Parametros', {
+      id: id ,
+      entidad: "integrante",
+      identificacion: (integrante.usuarioId?Meteor.users.findOne(integrante.usuarioId).profile.name:'Sin definir, rol '
+                       + (integrante.rol?integrante.rol:' Sin rol definido')),
+      empresaId: Router.current().params._empresaId
     });
     $('#modal-confirmacion-eliminacion').modal('show');
   },

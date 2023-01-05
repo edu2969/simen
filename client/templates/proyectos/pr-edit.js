@@ -1,11 +1,3 @@
-var EDITING_KEY = 'prEdit';
-Session.setDefault(EDITING_KEY, false);
-
-// Track if this is the first time the list template is rendered
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 Template.prEdit.rendered = function() {
   $('.datetimepicker-component').datetimepicker({
     format: 'DD/MM/YY'
@@ -70,13 +62,13 @@ Template.prEdit.events({
     var id = e.currentTarget.id;
     var tipo = e.currentTarget.attributes.tipo.value;
     var value = e.currentTarget.value;
-    var valor = ( tipo =='fecha' ? moment(value, 'DD/MM/YY').toDate() : 
+    var valor = ( tipo =='fecha' ? moment(value, 'DD/MM/YY').toDate() :
                  tipo=='select-id' ? e.currentTarget.options[e.currentTarget.selectedIndex].id
                  : value );
     var prId = Session.get('PRId');
     if(!prId) {
       var ultimaPR = PRs.findOne({});
-      prId = PRs.insert({ 
+      prId = PRs.insert({
         numero: ( ultimaPR ? ultimaPR.numero : 142857 ),
         fecha: new Date()
       });

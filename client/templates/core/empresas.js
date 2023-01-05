@@ -1,16 +1,9 @@
-var EDITING_KEY = 'empresas';
-Session.setDefault(EDITING_KEY, false);
-
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 Template.empresas.rendered = function () {
   delete Session.keys["Empresa"];
 }
 
 Template.empresas.destroyed = function() {
-  
+
 }
 
 Template.empresas.helpers({
@@ -48,9 +41,9 @@ Template.empresas.events({
     e.preventDefault();
     var id = e.currentTarget.id;
     var empresa = Empresas.findOne(id);
-    Session.set('Parametros', { 
-      id: id, 
-      entidad: "empresa", 
+    Session.set('Parametros', {
+      id: id,
+      entidad: "empresa",
       identificacion: (empresa?empresa.razon:'ERROR!')
     });
     $('#modal-confirmacion-eliminacion').modal('show');

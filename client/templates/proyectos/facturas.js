@@ -1,11 +1,3 @@
-var EDITING_KEY = 'facturas';
-Session.setDefault(EDITING_KEY, false);
-
-// Track if this is the first time the list template is rendered
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 Template.facturas.rendered = function () {
   Session.set('EmpresaIdSeleccionada', false);
   Session.set('FacturaIdSeleccionada', false);
@@ -56,7 +48,7 @@ Template.facturas.helpers({
         if (a.enHH) {
           a.totalCPL = a.valorHH * a.total;
         };
-        a.estaFacturada = a.factura && a.factura.nsii;      
+        a.estaFacturada = a.factura && a.factura.nsii;
         a.pagos = a.factura && a.factura.pagos;
 
         a.recibeComentarios = a.factura && a.factura.estado >= 3;

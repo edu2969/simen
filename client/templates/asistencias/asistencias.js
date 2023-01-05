@@ -1,11 +1,3 @@
-var EDITING_KEY = 'asistencias';
-Session.setDefault(EDITING_KEY, false);
-
-// Track if this is the first time the list template is rendered
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 Template.asistencias.rendered = function () {
   Session.set('NavigationPath', false);
   loadGlobalChart();
@@ -135,8 +127,8 @@ Template.asistencias.events({
     e.preventDefault();
     var periodo = moment($("#input-periodo").val(), "MMMM'YY").format("MM/YYYY");
     var bioId = $("#filter-rrhh-id").children(":selected").attr("id");
-    Meteor.call('ObtenerPDF', 'simen', 'asistencia', { 
-			"periodo": periodo, 
+    Meteor.call('ObtenerPDF', 'simen', 'asistencia', {
+			"periodo": periodo,
 			"bioId": Number(bioId)
 		}, function(err, res){
       var dl = document.createElement("a");
@@ -146,7 +138,7 @@ Template.asistencias.events({
       } else {
 				let colaborador = $("#filter-rrhh-id").val();
         dl.download = "asistencia_" + periodo + "_" + Normalizar(colaborador.replace(/\ /g, "_"));
-      }      
+      }
       document.body.appendChild(dl);
       dl.click();
       document.body.removeChild(dl);

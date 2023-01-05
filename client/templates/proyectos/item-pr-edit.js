@@ -1,11 +1,3 @@
-var EDITING_KEY = 'itemPREdit';
-Session.setDefault(EDITING_KEY, false);
-
-// Track if this is the first time the list template is rendered
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 Template.itemPREdit.rendered = function () {
   Session.set('ItemTypeSelected', 'Productos');
   Meteor.typeahead('#input-item-nombre');
@@ -13,8 +5,8 @@ Template.itemPREdit.rendered = function () {
 
 Template.itemPREdit.helpers({
   codigos: function () {
-    return Items.find({ prId: { $exists: true } }).fetch().map( function(it){ 
-      return it.codigo + '-' + it.nombre 
+    return Items.find({ prId: { $exists: true } }).fetch().map( function(it){
+      return it.codigo + '-' + it.nombre
     })
   },
   categoriesCounter: function () {

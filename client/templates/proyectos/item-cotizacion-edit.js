@@ -1,12 +1,3 @@
-var EDITING_KEY = 'itemCotizacionEdit';
-Session.setDefault(EDITING_KEY, false);
-
-// Track if this is the first time the list template is rendered
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
-
 Template.itemCotizacionEdit.rendered = function () {
   var i = Session.get("Item");
   var entorno = Session.get("EntornoEmpresa") ? Session.get("EntornoEmpresa") : { identificador: "ERROR" };
@@ -24,7 +15,7 @@ Template.itemCotizacionEdit.rendered = function () {
     if(subcatogoriaId) {
       i.subcategoriaId = subcatogoriaId;
     }
-    Session.set("Item", i);    
+    Session.set("Item", i);
   }
   Session.set("CategoriaIdSeleccionada", i.categoriaId);
   
@@ -94,14 +85,14 @@ Template.itemCotizacionEdit.events({
       tipo == 'precio' ? Number(value.replace(/\$/g, "").replace(/\./g, "").trim()) :
       tipo == 'numero' ? Number(value) :
       tipo == "select-id" ? ( e.currentTarget.selectedIndex==-1 ? false : e.currentTarget.options[e.currentTarget.selectedIndex].id ) :
-      value 
+      value
     );
     var atributo = id.split('-')[2];
     var item = Session.get("Item");
     if (!item) return;
     if (!item._id && atributo!=undefined) {
       item[atributo] = valor;
-      if(cot) item["cotizacionId"] = cot._id; 
+      if(cot) item["cotizacionId"] = cot._id;
       
       Meteor.call("ActualizarItem", false, item, function (err, resp) {
         if (!err) {

@@ -1,11 +1,3 @@
-var EDITING_KEY = 'cotizaciones';
-Session.setDefault(EDITING_KEY, false);
-
-// Track if this is the first time the list template is rendered
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 Template.cotizaciones.rendered = function () {
   Session.set('ClienteIdSeleccionado', false);
   Session.set('CotizacionIdSeleccionada', false);
@@ -42,11 +34,11 @@ Template.cotizaciones.helpers({
       doc["estado"] = eSel;
     }
     if(fSel) {
-      fecha["fecha"] = { 
-        $gte: moment(fSel, "DD/MM/YY").startOf("day").toDate(), 
-        $lt: moment(fSel, "DD/MM/YY").endOf("day").toDate() 
+      fecha["fecha"] = {
+        $gte: moment(fSel, "DD/MM/YY").startOf("day").toDate(),
+        $lt: moment(fSel, "DD/MM/YY").endOf("day").toDate()
       };
-    } 
+    }
     return Cotizaciones.find(doc, { sort: { numero: -1 }}).map(function (a, index) {
       a.index = index;
       a.cliente = Empresas.findOne({ _id: a.clienteId });
@@ -108,7 +100,7 @@ Template.cotizaciones.events({
   'click .btn-eliminar': function (e) {
     e.preventDefault();
     Session.set('Parametros', {
-      entidad: "cotizacion", 
+      entidad: "cotizacion",
       id: e.currentTarget.id
     });
     $('#modal-confirmacion-eliminacion').modal('show');
@@ -118,9 +110,9 @@ Template.cotizaciones.events({
     var id = select.attributes["cotizacion"].value;
     var codigo = Number(select.options[select.selectedIndex].id);
     var categoria = Categorias.findOne({ llave: "EST_COT", codigo: codigo });
-    Session.set("CotizacionParams", { 
-      cotizacionId: id, 
-      categoria: categoria, 
+    Session.set("CotizacionParams", {
+      cotizacionId: id,
+      categoria: categoria,
       anterior: Cotizaciones.findOne({ _id: id }).estado,
       rechazo: Cotizaciones.findOne({ _id: id }).rechazo
     });

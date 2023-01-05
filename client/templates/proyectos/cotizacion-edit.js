@@ -1,11 +1,3 @@
-var EDITING_KEY = 'cotizacionEdit';
-Session.setDefault(EDITING_KEY, false);
-
-// Track if this is the first time the list template is rendered
-var firstRender = true;
-var listRenderHold = LaunchScreen.hold();
-listFadeInHold = null;
-
 Template.cotizacionEdit.rendered = function () {
   $('.datetimepicker-component').datetimepicker({
     format: 'DD/MM/YY'
