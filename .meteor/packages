@@ -1,6 +1,6 @@
 standard-app-packages
 less
-accounts-password@2.3.2
+accounts-password
 ajduke:bootstrap-tagsinput
 rzymek:moment-locale-es
 tsega:bootstrap3-datetimepicker
@@ -13,6 +13,6 @@ meteorhacks:search-source
 sergeyt:typeahead
 reywood:publish-composite
 risul:bootstrap-colorpicker
-dynamic-import@0.7.2
+dynamic-import
 coffeescript
-ecmascript@0.16.4
+ecmascript

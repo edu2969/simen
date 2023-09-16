@@ -302,9 +302,13 @@ Template.asistenciaDetalle.events({
     }, function (err, res) {
       var dl = document.createElement("a");
       dl.href = "data:application/pdf;base64, " + res;
-      dl.download = "asistencia_" + periodo + "_" + Normalizar(Meteor.users.findOne({
+      var userProfile = Meteor.users.findOne({
         "profile.bioId": bioId
-      }).profile.name.toLowerCase().replace(/ /g, "_"));
+      }).profile;
+      dl.download = "asistencia_" + periodo + "_" + Normalizar(
+          (userProfile.nombres + " " + userProfile.apellidos)
+              .toLowerCase()
+              .replace(/ /g, "_"));
       document.body.appendChild(dl);
       dl.click();
       document.body.removeChild(dl);

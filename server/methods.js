@@ -978,7 +978,7 @@ PDFAsistenciasTrabajador = function (doc, params) {
       MonthNames[month] +
       " " +
       year +
-      (Meteor.user().profile.role != 6 ? " - " + user.profile.name : ""),
+      (Meteor.user().profile.role != 6 ? " - " + user.profile.nombres + " " + user.profile.apellidos : ""),
     234,
     82
   );
@@ -1221,7 +1221,7 @@ PDFAsistenciasTrabajador = function (doc, params) {
   if (Meteor.user().profile.role != 6) {
     doc.fontSize(11).fillColor("#2c3e50");
     doc.text("___________________________", 340, 700);
-    doc.text("Firma " + user.profile.name, 340, 716);
+    doc.text("Firma " + user.profile.nombres + " " + user.profile.apellidos, 340, 716);
 
     if (user.profile.libro) {
       doc.text(
@@ -1508,7 +1508,7 @@ Meteor.methods({
           telefono: doc.telefono,
           bioId: doc.bioId,
           prioridad: doc.prioridad,
-          rol: doc.rol,
+          role: doc.rol,
         },
       });
     } else {

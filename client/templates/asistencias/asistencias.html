@@ -33,7 +33,7 @@
                 <option id="-1">--- TODOS ---</option>
                 {{/if}}
                 {{#each colaborators}}
-                <option id="{{profile.bioId}}">{{profile.name}}</option>
+                <option id="{{profile.bioId}}">{{profile.nombres}} {{profile.apellidos}}</option>
                 {{/each}}
               </select>
             </div>
@@ -80,7 +80,7 @@
               </tr>
               {{#each colaborators}}
               <tr>
-                <td>{{indice}}. {{profile.name}}</td>
+                <td>{{indice}}. {{profile.nombres}} {{profile.apellidos}}</td>
                 <td>{{hhNormal}}</td>
                 <td>{{hh50}}</td>
                 <td>{{hh100}}</td>

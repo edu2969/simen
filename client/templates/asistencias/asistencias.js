@@ -70,10 +70,10 @@ Template.asistencias.helpers({
     return Session.get("PeriodoResumen")
   },
   esGerente: function() {
-    return Meteor.user() && Meteor.user().profile.role <= 2;
+    return Meteor.user() && Meteor.user().profile?.role <= 2;
   },
   puedeImportar: function() {
-    return Meteor.user() && Meteor.user().profile.role <= 3;
+    return Meteor.user() && Meteor.user().profile?.role <= 3;
   }
 });
 
