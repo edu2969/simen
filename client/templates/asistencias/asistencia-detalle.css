@@ -69,7 +69,7 @@ table tr td, table tr th {
   padding: 2px;
 }
 
-.btn-add-marcation, .btn-edit-marcation, .btn-vacacion {
+.btn-add-marcation, .btn-edit-marcation, .btn-vacacion, .btn-licencia {
   cursor: pointer;
 }
 
@@ -83,4 +83,9 @@ table tr td, table tr th {
 
 .en-vacaciones {
   background: repeating-linear-gradient(-45deg, grey, grey 5px, white 5px, white 10px);
+}
+
+.en-licencia {
+  background-image: repeating-linear-gradient(to bottom, transparent, transparent 5px, #a71e62 5px, #a71e62 10px),
+                    repeating-linear-gradient(to right, #8a6b7a, #8a6b7a 5px, #a71e62 5px, #a71e62 10px);
 }

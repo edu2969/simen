@@ -994,6 +994,7 @@ PDFAsistenciasTrabajador = function (doc, params) {
     hh100: 0,
     totalNormal: 0,
     vacaciones: 0,
+    licencias: 0,
   };
 
   for (var i = 1; i <= lastMonthDay; i++) {
@@ -1033,6 +1034,9 @@ PDFAsistenciasTrabajador = function (doc, params) {
     // Es vacacion
     if (assist.vacacion) {
       doc.text("VACACIONES", x + tp + 72, y + tp + 8);
+    }
+    if (assist.licencia) {
+      doc.text("LICENCIA", x + tp + 72, y + tp + 8);
     }
 
     // marcaciones y estilos
@@ -1127,16 +1131,21 @@ PDFAsistenciasTrabajador = function (doc, params) {
     if (period.getDay() != 0 && period.getDay() != 6 && !reg.isHolyDay) {
       // Otros stats
       if (!reg.marcasView || reg.marcasView.length == 0) {
-        if (!assist.vacacion) {
+        if (!assist.vacacion && !assist.licencia) {
           reg.vacacionable = true;
           stats.absentDays++;
           reg.hhNormal = -9;
-        } else {
+        } else if(assist.vacacion) {
           stats.vacaciones++;
           //stats.hhNormal = stats.hhNormal + 9;
           reg.hhNormal = 0;
           reg.vacacion = true;
-        }
+        } else if(assist.licencia) {
+          stats.licencias++;
+          //stats.hhNormal = stats.hhNormal + 9;
+          reg.hhNormal = 0;
+          reg.licencia = true;
+        } 
       }
     }
     stats.hhNormal += reg.hhNormal ? reg.hhNormal : 0;
@@ -1200,10 +1209,10 @@ PDFAsistenciasTrabajador = function (doc, params) {
   doc.text(": " + stats.vacaciones, 374, 130);
   doc.text("HH.Normal", 424, 102);
   doc.text(": " + stats.hhNormal, 504, 102);
-  doc.text("HH.1/2 Ext", 424, 116);
-  doc.text(": " + stats.hh50, 504, 116);
-  doc.text("HH.100% Ext", 424, 130);
-  doc.text(": " + stats.hh100, 504, 130);
+  doc.text("HH. Ext", 424, 116);
+  doc.text(": " + stats.hh50 + '/' + stats.hh100, 504, 116);
+  doc.text("Días licencia", 424, 130);
+  doc.text(": " + stats.licencias, 504, 130);  
 
   doc.rect(50, 102, 78, 40).fill("#bdc3c7", "even-odd");
   doc.rect(130, 102, 78, 40).fill("#bdc3c7", "even-odd");

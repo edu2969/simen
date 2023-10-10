@@ -74,7 +74,7 @@ Template.asistenciaDetalle.helpers({
       reg.isMediaJornada = tJorn == 3;
 
       // marcaciones y estilos
-      if (!assist.vacacion && assist.marcas) {
+      if (!assist.vacacion && !assist.licencia && assist.marcas) {
         var marcas = assist.marcas;
         var array = [];
         var isIn = true;
@@ -162,15 +162,19 @@ Template.asistenciaDetalle.helpers({
 
         // Otros stats
         if (!reg.marcasView || reg.marcasView.length == 0) {
-          if (!assist.vacacion) {
+          if (!assist.vacacion && !assist.licencia) {
             reg.vacacionable = true;
             stats.absentDays++;
             reg.hhNormal = -9;
-          } else {
+          } else if(assist.vacacion) {
             stats.vacaciones++
             //stats.hhNormal = stats.hhNormal + 9;
             reg.hhNormal = 0
             reg.vacacion = true
+          } else if(assist.licencia) {
+            stats.licencia++;
+            reg.hhNormal = 0;
+            reg.licencia = true;
           }
         }
       }
@@ -366,6 +370,37 @@ Template.asistenciaDetalle.events({
       } : {
         $set: {
           vacacion: true
+        }
+      };
+      Meteor.call("ProcesarCambioAsistencia", assist._id, doc);
+    }
+  },
+  'click .btn-licencia': function (e) {
+    e.preventDefault()
+    var id = e.currentTarget.id;
+    var trabajador = Meteor.users.findOne({
+      "profile.bioId": Number(Router.current().params.bioId)
+    });
+    var doc = {
+      month: Number(id.split('-')[1]),
+      day: Number(id.split('-')[0]),
+      year: Number(id.split('-')[2]),
+      userId: trabajador._id
+    };
+    var assist = Asistencias.findOne(doc);
+    if (!assist) {
+      doc.licencia = true;
+      Meteor.call("ProcesarCambioAsistencia", false, {
+        $set: doc
+      });
+    } else {
+      var doc = assist.licencia ? {
+        $unset: {
+          licencia: ""
+        }
+      } : {
+        $set: {
+          licencia: true
         }
       };
       Meteor.call("ProcesarCambioAsistencia", assist._id, doc);
