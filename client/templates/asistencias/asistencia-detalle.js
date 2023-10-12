@@ -1,3 +1,5 @@
+import { TIPOS_JORNADAS } from "../../../lib/misc";
+
 Template.asistenciaDetalle.rendered = function () {
   Session.set("ImportMessages", false);
 }
@@ -69,9 +71,9 @@ Template.asistenciaDetalle.helpers({
 
       // Es feriado
       var tJorn = TipoJornada(period);
-      reg.isHolyDay = tJorn == 1 || tJorn == 2;
+      reg.isHolyDay = tJorn == TIPOS_JORNADAS.FERIADO_LEGAL || tJorn == TIPOS_JORNADAS.COMPENSACION_VACACIONES;
       reg.isWeekend = period.getDay() == 0 || period.getDay() == 6;
-      reg.isMediaJornada = tJorn == 3;
+      reg.isMediaJornada = tJorn == TIPOS_JORNADAS.MEDIA_JORNADA;
 
       // marcaciones y estilos
       if (!assist.vacacion && !assist.licencia && assist.marcas) {
@@ -147,7 +149,7 @@ Template.asistenciaDetalle.helpers({
       // Horas normales y extras
       if (assist.hhNormal) {
         // Media Jornada, descuenta medio dia
-        if (TipoJornada(period) == 3) {
+        if (TipoJornada(period) == TIPOS_JORNADAS.MEDIA_JORNADA) {
           reg.hhNormal = assist.hhNormal + 4.5;
         } else {
           reg.hhNormal = assist.hhNormal;
@@ -165,15 +167,16 @@ Template.asistenciaDetalle.helpers({
           if (!assist.vacacion && !assist.licencia) {
             reg.vacacionable = true;
             stats.absentDays++;
-            reg.hhNormal = -9;
           } else if(assist.vacacion) {
             stats.vacaciones++
-            //stats.hhNormal = stats.hhNormal + 9;
+            stats.hhNormal = stats.hhNormal + 9;
             reg.hhNormal = 0
             reg.vacacion = true
           } else if(assist.licencia) {
+            stats.hhNormal = stats.hhNormal - 9;
             stats.licencia++;
-            reg.hhNormal = 0;
+            stats.absentDays++;
+            reg.hhNormal = -9;
             reg.licencia = true;
           }
         }
