@@ -146,9 +146,7 @@ Template.asistenciaDetalle.helpers({
         }
       }
 
-      // Horas normales y extras
       if (assist.hhNormal) {
-        // Media Jornada, descuenta medio dia
         if (TipoJornada(period) == TIPOS_JORNADAS.MEDIA_JORNADA) {
           reg.hhNormal = assist.hhNormal + 4.5;
         } else {
@@ -158,13 +156,9 @@ Template.asistenciaDetalle.helpers({
       if (assist.hhExt50) reg.hhExt50 = assist.hhExt50;
       if (assist.hhExt100) reg.hhExt100 = assist.hhExt100;
 
-      // Acumulación de horas
       if (period.getDay() != 0 && period.getDay() != 6 && !reg.isHolyDay) {
-        //stats.hhNormal += ( reg.hhNormal ? reg.hhNormal : 0 );
-
-        // Otros stats
         if (!reg.marcasView || reg.marcasView.length == 0) {
-          if (!assist.vacacion && !assist.licencia) {
+          if (!assist.vacacion && !assist.licencia) {            
             reg.vacacionable = true;
             stats.absentDays++;
           } else if(assist.vacacion) {
@@ -180,9 +174,10 @@ Template.asistenciaDetalle.helpers({
           }
         }
       }
-      stats.hhNormal += reg.hhNormal ? reg.hhNormal : 0;
-      stats.hh50 += reg.hhExt50 ? reg.hhExt50 : 0
-      stats.hh100 += reg.hhExt100 ? reg.hhExt100 : 0
+      console.log("AGREGANDO AL STAT", reg);
+      stats.hhNormal += reg.hhNormal || 0;
+      stats.hh50 += reg.hhExt50 || 0
+      stats.hh100 += reg.hhExt100 || 0
 
       // Agrega el registro
       dayRegs[i] = reg;

@@ -1129,28 +1129,26 @@ PDFAsistenciasTrabajador = function (doc, params) {
 
     // Acumulación de horas
     if (period.getDay() != 0 && period.getDay() != 6 && !reg.isHolyDay) {
-      // Otros stats
       if (!reg.marcasView || reg.marcasView.length == 0) {
-        if (!assist.vacacion && !assist.licencia) {
+        if (!assist.vacacion && !assist.licencia) {            
           reg.vacacionable = true;
           stats.absentDays++;
         } else if(assist.vacacion) {
-          stats.vacaciones++;
-          stats.hhNormal = stats.hhNormal + 9;
-          reg.hhNormal = 0;
-          reg.vacacion = true;
+          stats.vacaciones++
+          reg.hhNormal = 0
+          reg.vacacion = true
         } else if(assist.licencia) {
-          stats.hhNormal = stats.hhNormal - 9;          
-          stats.licencias++;
+          stats.hhNormal = stats.hhNormal - 9;
+          stats.licencia++;
           stats.absentDays++;
           reg.hhNormal = -9;
           reg.licencia = true;
-        } 
+        }
       }
     }
-    stats.hhNormal += reg.hhNormal ? reg.hhNormal : 0;
-    stats.hh50 += reg.hhExt50 ? reg.hhExt50 : 0;
-    stats.hh100 += reg.hhExt100 ? reg.hhExt100 : 0;
+    stats.hhNormal += reg.hhNormal || 0;
+    stats.hh50 += reg.hhExt50 || 0
+    stats.hh100 += reg.hhExt100 || 0
 
     if (reg.hhNormal) {
       doc.rect(x + 208, y, 36, 12).fill("#34495e", "even-odd");
@@ -1850,6 +1848,9 @@ Meteor.methods({
         {
           $set: {
             marcas: marcas,
+            hhNormal: 9,
+            hhExt50: 0,
+            hhExt100: 0,
           },
         }
       );
