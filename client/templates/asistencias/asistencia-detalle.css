@@ -86,6 +86,6 @@ table tr td, table tr th {
 }
 
 .en-licencia {
-  background-image: repeating-linear-gradient(to bottom, transparent, transparent 5px, #a71e62 5px, #a71e62 10px),
-                    repeating-linear-gradient(to right, #8a6b7a, #8a6b7a 5px, #a71e62 5px, #a71e62 10px);
+  background-image: repeating-linear-gradient(to bottom, transparent, transparent 5px, #550808 5px, #550808 10px),
+                    repeating-linear-gradient(to right, #550808, #550808 5px, #a71e62 5px, #a71e62 10px);
 }

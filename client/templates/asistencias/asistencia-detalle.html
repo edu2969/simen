@@ -142,6 +142,7 @@
                             {{/unless}}
                             {{/unless}}
                             {{/if}}
+
                             {{#each marcasView}}
                             <span id="{{assistId}}-{{day}}-{{index}}"
                                 class="etiqueta-marcacion label label-{{style}} btn-edit-marcation"
@@ -154,30 +155,32 @@
                                 {{/if}}
                             </span>
                             {{/each}}
+
                             {{#if esGerente}}
+                            {{#if licencia}}
+                            <span id="{{day}}-{{month}}-{{year}}" class="label label-primary btn-licencia">
+                                <span class="glyphicon glyphicon-remove"></span> Quitar como día licencia
+                            </span>
+                            {{else if licenciable}}
+                            {{#unless vacacion}}
+                            <span id="{{day}}-{{month}}-{{year}}" class="label label-danger btn-licencia">
+                                <span class="glyphicon glyphicon-heart"></span> ¿Es día de licencia?
+                            </span>
+                            {{/unless}}
+                            {{/if}}
                             {{#if vacacionable}}
                             <span id="{{day}}-{{month}}-{{year}}" class="label label-default btn-vacacion">
                                 <span class="glyphicon glyphicon-exclamation-sign"></span> ¿Es día de vacación?
                             </span>
-                            <span id="{{day}}-{{month}}-{{year}}" class="label label-danger btn-licencia">
-                                <span class="glyphicon glyphicon-heart"></span> ¿Es día de licencia?
-                            </span>                            
                             {{#unless marcasView}}
                             <span id="{{day}}-{{month}}-{{year}}" class="label label-success btn-llenar-jornada">
                                 <span class="glyphicon glyphicon-filter"></span> Llenar
                             </span>
                             {{/unless}}
-                            {{else}}
-                            {{#if vacacion}}
+                            {{else if vacacion}}
                             <span id="{{day}}-{{month}}-{{year}}" class="label label-warning btn-vacacion">
                                 <span class="glyphicon glyphicon-remove"></span> Quitar como día vacación
                             </span>
-                            {{/if}}
-                            {{#if licencia}}
-                            <span id="{{day}}-{{month}}-{{year}}" class="label label-primary btn-licencia">
-                                <span class="glyphicon glyphicon-remove"></span> Quitar como día licencia
-                            </span>
-                            {{/if}}
                             {{/if}}
                             {{/if}}
                         </div>

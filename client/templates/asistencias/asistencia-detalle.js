@@ -74,6 +74,9 @@ Template.asistenciaDetalle.helpers({
       reg.isHolyDay = tJorn == TIPOS_JORNADAS.FERIADO_LEGAL || tJorn == TIPOS_JORNADAS.COMPENSACION_VACACIONES;
       reg.isWeekend = period.getDay() == 0 || period.getDay() == 6;
       reg.isMediaJornada = tJorn == TIPOS_JORNADAS.MEDIA_JORNADA;
+      if(reg.isHolyDay || reg.isWeekend || !assist.marcas?.length) {
+        reg.licenciable = true;
+      }
 
       // marcaciones y estilos
       if (!assist.vacacion && !assist.licencia && assist.marcas) {
@@ -155,8 +158,8 @@ Template.asistenciaDetalle.helpers({
       }
       if (assist.hhExt50) reg.hhExt50 = assist.hhExt50;
       if (assist.hhExt100) reg.hhExt100 = assist.hhExt100;
-
-      if (period.getDay() != 0 && period.getDay() != 6 && !reg.isHolyDay) {
+      const finDeSemana = period.getDay() != 0 && period.getDay() != 6;
+      if (period.getDay() != 0 && period.getDay() != 6 &&  !reg.isHolyDay) {
         if (!reg.marcasView || reg.marcasView.length == 0) {
           if (!assist.vacacion && !assist.licencia) {            
             reg.vacacionable = true;
@@ -165,16 +168,15 @@ Template.asistenciaDetalle.helpers({
             stats.vacaciones++
             reg.hhNormal = 0
             reg.vacacion = true
-          } else if(assist.licencia) {
-            stats.hhNormal = stats.hhNormal - 9;
-            stats.licencia++;
-            stats.absentDays++;
-            reg.hhNormal = -9;
-            reg.licencia = true;
           }
         }
+      } else if(assist.licencia) {
+        stats.hhNormal = stats.hhNormal - 9;
+        stats.licencia++;
+        stats.absentDays++;
+        reg.hhNormal = -9;
+        reg.licencia = true;
       }
-      console.log("AGREGANDO AL STAT", reg);
       stats.hhNormal += reg.hhNormal || 0;
       stats.hh50 += reg.hhExt50 || 0
       stats.hh100 += reg.hhExt100 || 0
@@ -274,13 +276,6 @@ Template.asistenciaDetalle.events({
       $('#change-log').val('');
     }
 
-    /*
-    if( e.currentTarget.classList.contains('glyphicon-ban-circle') ) {
-      $('#checkbox-invalid').prop('checked', true);
-    } else {
-      $('#checkbox-invalid').prop('checked', false);
-    }*/
-
     $('#modal-edit-value').modal('show');
 
     var text = e.currentTarget.innerText;
@@ -355,7 +350,7 @@ Template.asistenciaDetalle.events({
     };
     var assist = Asistencias.findOne(doc);
     if (!assist) {
-      doc.vacacion = true;
+      doc.vacacion = true;      
       Meteor.call("ProcesarCambioAsistencia", false, {
         $set: doc
       });
@@ -366,7 +361,10 @@ Template.asistenciaDetalle.events({
         }
       } : {
         $set: {
-          vacacion: true
+          vacacion: true,          
+        },
+        $unset: {
+          licencia: true
         }
       };
       Meteor.call("ProcesarCambioAsistencia", assist._id, doc);
@@ -397,7 +395,10 @@ Template.asistenciaDetalle.events({
         }
       } : {
         $set: {
-          licencia: true
+          licencia: true,          
+        },  
+        $unset: { 
+          vacacion: 1 
         }
       };
       Meteor.call("ProcesarCambioAsistencia", assist._id, doc);

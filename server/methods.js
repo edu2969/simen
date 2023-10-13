@@ -1852,6 +1852,10 @@ Meteor.methods({
             hhExt50: 0,
             hhExt100: 0,
           },
+          $unset: {
+            licencia: 1,
+            vacacion: 1
+          }
         }
       );
     }
