@@ -24,7 +24,9 @@ Template.jornadas.events({
     e.preventDefault();
     Session.set('Parametros', {
       entidad: "fechaespecial",
-      id: e.currentTarget.id
+      glosa: "el feriado",
+      id: e.currentTarget.id,
+      identificacion: e.currentTarget.attributes["periodo"].value
     });
     $("#modal-confirmacion-eliminacion").modal('show');
   },
