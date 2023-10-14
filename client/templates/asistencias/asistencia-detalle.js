@@ -159,7 +159,7 @@ Template.asistenciaDetalle.helpers({
       if (assist.hhExt50) reg.hhExt50 = assist.hhExt50;
       if (assist.hhExt100) reg.hhExt100 = assist.hhExt100;
       const finDeSemana = period.getDay() != 0 && period.getDay() != 6;
-      if (period.getDay() != 0 && period.getDay() != 6 &&  !reg.isHolyDay) {
+      if (finDeSemana &&  !reg.isHolyDay) {
         if (!reg.marcasView || reg.marcasView.length == 0) {
           if (!assist.vacacion && !assist.licencia) {            
             reg.vacacionable = true;
@@ -170,7 +170,8 @@ Template.asistenciaDetalle.helpers({
             reg.vacacion = true
           }
         }
-      } else if(assist.licencia) {
+      } 
+      if(assist.licencia) {
         stats.hhNormal = stats.hhNormal - 9;
         stats.licencia++;
         stats.absentDays++;
@@ -364,7 +365,7 @@ Template.asistenciaDetalle.events({
           vacacion: true,          
         },
         $unset: {
-          licencia: true
+          licencia: 1
         }
       };
       Meteor.call("ProcesarCambioAsistencia", assist._id, doc);
@@ -391,7 +392,7 @@ Template.asistenciaDetalle.events({
     } else {
       var doc = assist.licencia ? {
         $unset: {
-          licencia: ""
+          licencia: 1
         }
       } : {
         $set: {

@@ -1809,12 +1809,10 @@ Meteor.methods({
       id = Asistencias.insert(doc.$set);
       //console.log("Creado: " + id);
     } else {
-      Asistencias.update(
-        {
-          _id: id,
-        },
-        doc
-      );
+      var cambios = {};
+      if(doc['$set']) cambios.$set = doc['$set'];
+      if(doc['$unset']) cambios.$unset = doc['$unset'];
+      Asistencias.update({ _id: id }, cambios);
     }
     ProcessAssistanceHH(id);
   },
