@@ -1,20 +1,19 @@
 Template.asistencias.rendered = function () {
   Session.set('NavigationPath', false);
-  loadGlobalChart();
+  //loadGlobalChart();
+  let params = Session.get("AssistanceParams");
   var initial = moment();
+  if(!params) {
+    Session.set("AssistanceParams", moment(initial.toDate()).format("MM/YY"));
+    Session.set("PeriodoResumen", initial.format("MMMM'YY"));
+  } else {
+    initial = moment(Session.get("PeriodoResumen"), "MMMM'YY");
+  }
   $('.datetimepicker-component').datetimepicker({
     viewMode: 'months',
     format: 'MMMM \'YY',
     defaultDate: initial.toDate()
-  });
-  Session.set("AssistanceParams", moment(initial.toDate()).format("MM/YY"));
-  Session.set("PeriodoResumen", initial.format("MMMM'YY"));
-  
-  if(Meteor.user().profile.role<=2) {
-    bioId = -1;
-  } else {
-    bioId = Meteor.users.findOne({ "profile.prioridad": 1 }).profile.bioId;
-  }
+  });    
 }
 
 Template.asistencias.helpers({

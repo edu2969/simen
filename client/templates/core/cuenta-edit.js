@@ -138,7 +138,7 @@ Template.cuentaEdit.events({
     if (rolActual == 7 && $("#checkbox-reintegrar").is(":checked")) {
       rolActual = 6;
     }
-    validacion.rol = rolActual;
+    validacion.role = rolActual;
 
     console.log("RESULTADOS", validacion);
 

@@ -3,12 +3,12 @@
         {{>topNav}}
         <div id="calendar-section" class="content-scrollable list-items">
             <div class="row">
-                <div class="col-xs-12 col-sm-7" style="margin-top: 8px; margin-bottom: 8px;">
+                <div class="col-xs-7" style="margin-top: 8px; margin-bottom: 8px;">
                     <h2>{{period}}</h2>
                     <span>Planilla de Asistencia</span>
                 </div>
                 {{#if imprimible }}
-                <div class="col-xs-12 col-sm-5" style="text-align: right">
+                <div class="col-xs-5" style="text-align: right">
                     <button id="btn-print" class="btn btn-info" style="width: 149px">
                         <span class="glyphicon glyphicon-print" style="font-size: 32px"></span>
                         <br />Imprimir<br />reporte
@@ -32,9 +32,9 @@
                     <h6>: {{ stats.absentDays }}</h6>
                     <h6>: {{ stats.lateDays }}</h6>
                     <h6>: {{ stats.vacaciones }}</h6>
-                    <h6>: {{ stats.hhNormal}} ({{hours2Days stats.hhNormal}})</h6>
+                    <!--h6>: {{ stats.hhNormal}} ({{hours2Days stats.hhNormal}})</h6>
                     <h6>: {{ stats.hh50 }} ({{hours2Days stats.hh50}})</h6>
-                    <h6>: {{ stats.hh100 }} ({{hours2Days stats.hh100}})</h6>
+                    <h6>: {{ stats.hh100 }} ({{hours2Days stats.hh100}})</h6-->
                 </div>
             </div>
             <div class="row">
@@ -54,7 +54,7 @@
             {{>mensajes}}
 
             {{/unless}}
-            <div class="row">
+            <!--div class="row">
                 <div class="col-md-4 col-lg-4 col-xs-4">
                     <div
                         style="border-radius: 6px; border: 8px solid rgba(46,204,113, 0.2); text-align: center; background-color: rgba(46,204,113, 0.2)">
@@ -79,7 +79,7 @@
                         <span>({{hours2Days stats.total.hh100}})</span>
                     </div>
                 </div>
-            </div>
+            </div-->
             <table width="100%" style="margin-top: 7px;">
                 <tr>
                     <th width="37">

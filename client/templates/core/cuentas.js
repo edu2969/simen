@@ -101,10 +101,11 @@ Template.cuentas.events({
     Session.set('Parametros', {
       entidad: "usuario",
       id: btnid,
-      identificacion: usuario.profile.name,
-      operacion: "eliminar"
+      identificacion: usuario.profile.nombres + " " + usuario.profile.apellidos,
+      operacion: "eliminar",
+      glosa: "eliminar a",
     });
-    $('#modalconfirmacioneliminacion').modal('show');
+    $('#modal-confirmacion-eliminacion').modal('show');
   },
   'click .btn-desvincular': function (e) {
     var btnid = e.currentTarget.id;
@@ -112,10 +113,11 @@ Template.cuentas.events({
     Session.set('Parametros', {
       entidad: "usuario",
       id: btnid,
-      identificacion: usuario.profile.name,
-      operacion: "desvincular"
+      identificacion: usuario.profile.nombres + " " + usuario.profile.apellidos,
+      operacion: "desvincular",
+      glosa: "desvincular a",
     });
-    $('#modalconfirmacioneliminacion').modal('show');
+    $('#modal-confirmacion-eliminacion').modal('show');
   },
   'click #btn-add-account': function (e) {
     e.preventDefault();

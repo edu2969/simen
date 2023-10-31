@@ -1,5 +1,16 @@
+#datepicker-periodo input, #filter-rrhh-id {
+  font-size: 32px;
+  height: 1.9em;
+}
+
 #chart-container {
   height: 320px;
+}
+
+.btns-jumbo-combo button {
+  font-size: 28px;
+  padding: 0.5em;
+  margin-bottom: .5em;
 }
 
 .panel-container {

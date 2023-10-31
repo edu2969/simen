@@ -52,7 +52,7 @@
                   <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar
                 </button>
                 {{else}}
-                <button type="button" id="{{_id}}" class="btn btn-{{#if desvinculado}}danger{{else}}warning{{/if}} btn-eliminar">
+                <button type="button" id="{{_id}}" class="btn btn-{{#if desvinculado}}danger{{else}}warning{{/if}} btn-{{#if desvinculado}}eliminar{{else}}desvincular{{/if}}">
                   <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> {{#unless desvinculado}}Desvincular{{else}}Eliminar{{/unless}}
                 </button>
                 {{/if}}
@@ -68,6 +68,5 @@
         </div>
       {{/each}}
     </div>
-		{{> modalconfirmacioneliminacion}}
   </div>
 </template>

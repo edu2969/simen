@@ -1515,7 +1515,7 @@ Meteor.methods({
           telefono: doc.telefono,
           bioId: doc.bioId,
           prioridad: doc.prioridad,
-          role: doc.rol,
+          role: doc.role,
         },
       });
     } else {
@@ -1532,7 +1532,7 @@ Meteor.methods({
             "profile.telefono": doc.telefono,
             "profile.bioId": doc.bioId,
             "profile.prioridad": doc.prioridad,
-            "profile.rol": doc.rol,
+            "profile.role": doc.role,
           },
         }
       );
