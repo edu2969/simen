@@ -32,14 +32,10 @@ Meteor.startup(function () {
 
 Template.appBody.helpers({
   menuOpen: function () {
-    return Session.get(MENU_KEY) && 'menu-open';
+    return Meteor.userId() && Session.get(MENU_KEY) && 'menu-open';
   },
   cordova: function () {
     return Meteor.isCordova && 'cordova';
-  },
-  emailLocalPart: function () {
-    var email = Meteor.user().emails[0].address;
-    return email.substring(0, email.indexOf('@'));
   },
   userMenuOpen: function () {
     return Session.get(USER_MENU_KEY);
@@ -56,6 +52,9 @@ Template.appBody.helpers({
   },
   empresas: function() {
     return Empresas.find();
+  },
+  logged() {
+    return Meteor.userId() != null;
   }
 });
 
@@ -74,8 +73,5 @@ Template.appBody.events({
   },
   'click #menu a': function () {
     Session.set(MENU_KEY, false);
-  },
-  'click .js-logout': function () {
-    Meteor.logout();
   }
 });

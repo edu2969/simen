@@ -1,5 +1,5 @@
 <template name="appBody">
-  <div id="container" class="{{menuOpen}} {{cordova}}">
+  <div id="container" class="{{#unless logged}}menu-open{{/unless}} {{cordova}}">
 
     {{> modalSetPassword}}
     {{> modalEditValue}}
@@ -7,29 +7,9 @@
     {{> modalConfirmacionEliminacion}}
 
     <section id="menu">
-      {{#if currentUser}}
-        <div class="btns-group-vertical">
-          <a href="#" class="js-user-menu btn-secondary">
-            {{#if userMenuOpen}}
-              <span class="icon-arrow-up"></span>
-            {{else}}
-              <span class="icon-arrow-down"></span>
-            {{/if}}
-            {{emailLocalPart}}
-          </a>
-          {{#if userMenuOpen}}
-            <a class="js-logout btn-secondary">
-              <span class="glyphicon glyphicon-off"></span> Logout
-            </a>
-          {{/if}}
-        </div>
+      {{#if logged}}
         {{>navigation}}
-      {{else}}
-        <div class="btns-group">
-          <a href="{{pathFor 'login'}}" class="btn-secondary">Ingresar</a>
-        </div>
       {{/if}}
-
     </section>
 
     {{#unless connected}}
