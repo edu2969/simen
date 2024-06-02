@@ -1207,24 +1207,16 @@ PDFAsistenciasTrabajador = function (doc, params) {
   doc.text(": " + stats.vacaciones, 374, 130);
   doc.text("HH.Normal", 424, 102);
   doc.text(": " + stats.hhNormal, 504, 102);
-  doc.text("HH. Ext", 424, 116);
-  doc.text(": " + stats.hh50 + '/' + stats.hh100, 504, 116);
-  doc.text("Días licencia", 424, 130);
-  doc.text(": " + stats.licencias, 504, 130);  
-
-  doc.rect(50, 102, 78, 40).fill("#bdc3c7", "even-odd");
-  doc.rect(130, 102, 78, 40).fill("#bdc3c7", "even-odd");
-  doc.rect(210, 102, 78, 40).fill("#bdc3c7", "even-odd");
-
+  doc.text("Días licencia", 424, 116);
+  doc.text(": " + stats.licencias, 504, 116);
+  
+  doc.rect(50, 102, 78 * 3, 40).fill("#bdc3c7", "even-odd");
+  
   doc.fontSize(14).fillColor("#34495e");
-  doc.text("HH Norm", 54, 106);
-  doc.text("HH " + String.fromCharCode(189) + "Ext", 134, 106);
-  doc.text("HH Ext", 214, 106);
+  doc.text("HH Mes", 132, 106);
   doc.font("Helvetica-Bold").fontSize(16).fillColor("#34495e");
-  doc.text(Hours2Date(stats.total.hhNormal), 54, 124);
-  doc.text(Hours2Date(stats.total.hh50), 134, 124);
-  doc.text(Hours2Date(stats.total.hh100), 214, 124);
-
+  doc.text(stats.hhNormal, 142, 124);
+  
   if (Meteor.user().profile.role != 6) {
     doc.fontSize(11).fillColor("#2c3e50");
     doc.text("___________________________", 340, 700);
@@ -1818,6 +1810,8 @@ Meteor.methods({
   },
   LlenarAsistencia(doc) {
     var a = Asistencias.findOne(doc);
+    var mf = moment(doc.day + "-" + (doc.month + 1) + "-" + doc.year, "DD-MM-YYYY")
+    var esViernes = mf.get("day") == 5;    
     var marcas = [
       {
         ms: 110160000,
@@ -1829,16 +1823,14 @@ Meteor.methods({
         ms: 181440000,
       },
       {
-        ms: 239760000,
+        ms: esViernes ? (17.5 * 60 * 60 * 3600) : 239760000,
       },
     ];
     if (!a) {
-      console.log("INSERT");
       doc.marcas = marcas;
       a = {};
       a._id = Asistencias.insert(doc);
     } else {
-      console.log("UPDATE");
       Asistencias.update(
         {
           _id: a._id,
@@ -1846,7 +1838,7 @@ Meteor.methods({
         {
           $set: {
             marcas: marcas,
-            hhNormal: 9,
+            hhNormal: esViernes ? 7.5 : 9,
             hhExt50: 0,
             hhExt100: 0,
           },
@@ -1860,7 +1852,6 @@ Meteor.methods({
     ProcessAssistanceHH(a._id);
   },
   ActualizarLibro: function (id, doc) {
-    //console.log("doc" + JSON.stringify(doc))
     Meteor.users.update(
       {
         _id: id,

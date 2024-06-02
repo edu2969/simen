@@ -18,8 +18,8 @@ Template.asistenciaDetalle.helpers({
     return false;
   },
   period: function () {
-    return moment().month(Router.current().params.month - 1).format('MMM')
-      + '/' + Router.current().params.year;
+    return moment().month(Router.current().params.month - 1).format('MMMM')
+      + ' ' + Router.current().params.year;
   },
   stats: function () {
     return Session.get('Stats');
@@ -52,6 +52,7 @@ Template.asistenciaDetalle.helpers({
     for (var i = 1; i <= lastMonthDay; i++) {
       var reg = new Object();
       var period = new Date(year, month, i);
+      const horasJornadaDelDia = moment(period).get("day") == 5 ? 7.5 : 9;
       reg.day = i;
       reg.dayName = DayShortNames[period.getDay()];
       reg.month = period.getMonth()
@@ -172,10 +173,10 @@ Template.asistenciaDetalle.helpers({
         }
       } 
       if(assist.licencia) {
-        stats.hhNormal = stats.hhNormal - 9;
+        stats.hhNormal = stats.hhNormal - horasJornadaDelDia;
         stats.licencia++;
         stats.absentDays++;
-        reg.hhNormal = -9;
+        reg.hhNormal = -horasJornadaDelDia;
         reg.licencia = true;
       }
       stats.hhNormal += reg.hhNormal || 0;

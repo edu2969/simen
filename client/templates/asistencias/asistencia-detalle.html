@@ -4,8 +4,8 @@
         <div id="calendar-section" class="content-scrollable list-items">
             <div class="row">
                 <div class="col-xs-7" style="margin-top: 8px; margin-bottom: 8px;">
+                    <h4>Planilla de Asistencia</h4>
                     <h2>{{period}}</h2>
-                    <span>Planilla de Asistencia</span>
                 </div>
                 {{#if imprimible }}
                 <div class="col-xs-5" style="text-align: right">
@@ -17,69 +17,29 @@
                 {{/if}}
             </div>
             {{#unless isColaborator}}
-            <div class="row" style="margin:8px 0px 8px 0px;">
-                <div class="col-xs-5 col-sm-4 col-md-3 col-lg-2">
-                    <h6><b>Colaborador</b></h6>
-                    <h6><b>Inasistencias</b></h6>
-                    <h6><b>Retrasos</b></h6>
-                    <h6><b>Días Vacaciones</b></h6>
-                    <h6><b>HH.Norm</b></h6>
-                    <h6><b>HH.50%</b></h6>
-                    <h6><b>HH.100%</b></h6>
-                </div>
-                <div class="col-xs-7 col-sm-8 col-md-3 col-lg-4">
-                    <h6>: {{ user.profile.nombres }} {{user.profile.apellidos}}</h6>
-                    <h6>: {{ stats.absentDays }}</h6>
-                    <h6>: {{ stats.lateDays }}</h6>
-                    <h6>: {{ stats.vacaciones }}</h6>
-                    <!--h6>: {{ stats.hhNormal}} ({{hours2Days stats.hhNormal}})</h6>
-                    <h6>: {{ stats.hh50 }} ({{hours2Days stats.hh50}})</h6>
-                    <h6>: {{ stats.hh100 }} ({{hours2Days stats.hh100}})</h6-->
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-6">
-                    <h4>Obs.del mes</h4>
-                    <div class="form-group">
-                        {{#if esGerente}}
-                        <textarea rows="3" class="form-control" id="textarea-observacion"
-                            tipo="texto">{{observacionMes}}</textarea>
-                        {{else}}
-                        <textarea rows="3" class="form-control" id="textarea-observacion" tipo="texto"
-                            readonly>{{observacionMes}}</textarea>
-                        {{/if}}
+                <div class="row">
+                    <div class="col-xs-7 col-sm-4 col-md-3 col-lg-2">
+                        <h3><b>{{ user.profile.nombres }} {{user.profile.apellidos}}</b></h3>
+                        {{#if stats.absentDays}}<h5><b>{{ stats.absentDays }}<small> Inasistencias</small></b></h5>{{/if}}
+                        {{#if stats.lateDays }}<h5><b>{{ stats.lateDays }} <small> días de Retraso</small></b></h5>{{/if}}
+                        {{#if stats.vacaciones}}<h5><b>{{ stats.vacaciones }}<small> días de Vacaciones</small></b></h5>{{/if}}
+                        <h3><b><small>Total </small>{{stats.hhNormal}} <small> HH/mes</small></b></h3>
+                    </div>
+                    <div class="col-xs-5 col-md-6 col-lg-6">
+                        <h4>Observación del mes</h4>
+                        <div class="form-group">
+                            {{#if esGerente}}
+                            <textarea rows="3" class="form-control" id="textarea-observacion"
+                                tipo="texto">{{observacionMes}}</textarea>
+                            {{else}}
+                            <textarea rows="3" class="form-control" id="textarea-observacion" tipo="texto"
+                                readonly>{{observacionMes}}</textarea>
+                            {{/if}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            {{>mensajes}}
-
-            {{/unless}}
-            <!--div class="row">
-                <div class="col-md-4 col-lg-4 col-xs-4">
-                    <div
-                        style="border-radius: 6px; border: 8px solid rgba(46,204,113, 0.2); text-align: center; background-color: rgba(46,204,113, 0.2)">
-                        <span><b>HH Nor</b></span>
-                        <h3>{{stats.total.hhNormal}}</h3>
-                        <span>({{hours2Days stats.total.hhNormal}})</span>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-4 col-xs-4">
-                    <div
-                        style="border-radius: 6px; border: 8px solid rgba(241,196,15, 0.2); text-align: center; background-color: rgba(241,196,15, 0.2)">
-                        <span><b>HH 50%</b></span>
-                        <h3>{{stats.total.hh50}}</h3>
-                        <span>({{hours2Days stats.total.hh50}})</span>
-                    </div>
-                </div>
-                <div class="col-md-4 col-lg-4 col-xs-4">
-                    <div
-                        style="border-radius: 6px; border: 8px solid rgba(231,76,60, 0.2); text-align: center; background-color: rgba(231,76,60, 0.2)">
-                        <span><b>HH 100%</b></span>
-                        <h3>{{stats.total.hh100}}</h3>
-                        <span>({{hours2Days stats.total.hh100}})</span>
-                    </div>
-                </div>
-            </div-->
+                {{>mensajes}}
+            {{/unless}}           
             <table width="100%" style="margin-top: 7px;">
                 <tr>
                     <th width="37">
@@ -94,7 +54,7 @@
                     </th>
                     <th width="50">
                         <div class="detail-calendar-resume">
-                            <p>HH.Ext</p>
+                            <p>Horas</p>
                         </div>
                     </th>
                 </tr>
@@ -188,26 +148,24 @@
                     {{/if}}
                     <td>
                         <div class="detail-calendar-resumen-horas">
-                            <p style="color:{{#if hhExt50}}#f1c40f{{else}}
+                            <p style="font-size: 32px; padding-top: 0.5rem; color:{{#if hhExt50}}#f1c40f{{else}}
                  {{#if hhExt100}}#c0392b{{else}}#95a5a6{{/if}}{{/if}}">
-                                <b>{{#if hhNormal}}{{hhNormal}}{{else}}
-                                    {{#if hhExt50}}{{hhExt50}}{{else}}
-                                    {{#if hhExt100}}{{hhExt100}}{{else}}--{{/if}}
-                                    {{/if}}
-                                    {{/if}}</b>
-                            </p>
-                            <p style="color:{{#if hhExt50}}#f1c40f{{else}}
-                 {{#if hhExt100}}#c0392b{{else}}#95a5a6{{/if}}{{/if}}">
-                                <b>{{#if hhNormal}}(Norm){{else}}
-                                    {{#if hhExt50}}(50%){{else}}
-                                    {{#if hhExt100}}(100%){{else}}--{{/if}}
-                                    {{/if}}
-                                    {{/if}}</b>
-                            </p>
+                                <b>{{#if hhNormal}}{{hhNormal}}{{/if}}</b>
+                        </p>                            
                         </div>
                     </td>
                 </tr>
                 {{/each}}
+                <tr>
+                    <td colspan="2">
+                        <div class="detail-calendar-total">TOTAL</div>
+                    </td>
+                    <td>
+                        <div class="detail-calendar-total-horas">
+                            {{stats.hhNormal}}
+                        </div>                        
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
