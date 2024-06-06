@@ -1133,15 +1133,15 @@ PDFAsistenciasTrabajador = function (doc, params) {
         if (!assist.vacacion && !assist.licencia) {            
           reg.vacacionable = true;
           stats.absentDays++;
+          reg.hhNormal = 0;
         } else if(assist.vacacion) {
           stats.vacaciones++
-          reg.hhNormal = 0
+          reg.hhNormal = 9
           reg.vacacion = true
         } else if(assist.licencia) {
-          stats.hhNormal = stats.hhNormal - 9;
           stats.licencia++;
           stats.absentDays++;
-          reg.hhNormal = -9;
+          reg.hhNormal = 0;
           reg.licencia = true;
         }
       }

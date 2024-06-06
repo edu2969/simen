@@ -165,9 +165,10 @@ Template.asistenciaDetalle.helpers({
           if (!assist.vacacion && !assist.licencia) {            
             reg.vacacionable = true;
             stats.absentDays++;
+            reg.hhNormal = 0;
           } else if(assist.vacacion) {
             stats.vacaciones++
-            reg.hhNormal = 0
+            reg.hhNormal = 9
             reg.vacacion = true
           }
         }
@@ -176,6 +177,7 @@ Template.asistenciaDetalle.helpers({
         stats.hhNormal = stats.hhNormal - horasJornadaDelDia;
         stats.licencia++;
         stats.absentDays++;
+        reg.hhNormal = 0;
         reg.hhNormal = -horasJornadaDelDia;
         reg.licencia = true;
       }
