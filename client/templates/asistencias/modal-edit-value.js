@@ -108,6 +108,8 @@ Template.modalEditValue.events({
 			cambio.$unset = docUnset;
 		}
 
+		console.log("CAMBIO", cambio);
+
 		Meteor.call("ProcesarCambioAsistencia", params.assistId, cambio, function (err, resp) {
 			if (!err) {
 				$('#modal-edit-value').modal('hide');

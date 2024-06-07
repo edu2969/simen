@@ -68,7 +68,7 @@ Template.asistenciaDetalle.helpers({
       // Si no hay registro de asistencia, crea uno vacío
       if (!assist) assist = new Object();
       reg.assistId = assist._id;
-      if (assist.nota) reg.nota = assist.nota;
+      if (assist.tiponota) reg.tiponota = assist.tiponota;
 
       // Es feriado
       var tJorn = TipoJornada(period);

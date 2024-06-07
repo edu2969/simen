@@ -1038,7 +1038,11 @@ PDFAsistenciasTrabajador = function (doc, params) {
     if (assist.licencia) {
       doc.text("LICENCIA", x + tp + 72, y + tp + 8);
     }
-
+    if(!reg.isHolyDay && !reg.isWeekend && !assist.vacacion && !assist.hhNormal) {
+      const text = assist.tiponota == 1 ? "FALTA sin aviso" : assist.tiponota == 2 ? "PERMISO trámites" : assist.tiponota == 3 ? "PERMISO médico" : "INASISTENCIA";
+      doc.text(text, x + tp + 72, y + tp + 8);
+    }
+    
     // marcaciones y estilos
     if (assist.marcas) {
       var marcas = assist.marcas;
@@ -1114,6 +1118,10 @@ PDFAsistenciasTrabajador = function (doc, params) {
       if (array.length <= 3 && !reg.isMediaJornada) {
         stats.noMarked++;
       }
+    } else {
+      reg.hhNormal = 0;
+      reg.hhExt100 = 0;
+      reg.hhExt50 = 0;
     }
 
     // Horas normales y extras
