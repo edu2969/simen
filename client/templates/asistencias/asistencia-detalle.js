@@ -174,11 +174,8 @@ Template.asistenciaDetalle.helpers({
         }
       } 
       if(assist.licencia) {
-        stats.hhNormal = stats.hhNormal - horasJornadaDelDia;
         stats.licencia++;
-        stats.absentDays++;
         reg.hhNormal = 0;
-        reg.hhNormal = -horasJornadaDelDia;
         reg.licencia = true;
       }
       stats.hhNormal += reg.hhNormal || 0;
